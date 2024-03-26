@@ -6,10 +6,10 @@ dotenv.config();
 import cors from "cors";
 
 
-app.use(cors());
 const app=express();
 const port=process.env.port || 8000;
 
+app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
@@ -58,6 +58,7 @@ app.get("/api/front",async(req,res)=>{
     };
     try{
         const data=await useLink(url,params,process.env.API_KEY,process.env.API_HOST);
+        console.log(data);
         res.status(200).send(data);
     }catch(err){
         try{
