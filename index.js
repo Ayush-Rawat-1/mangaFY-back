@@ -11,13 +11,22 @@ const port=process.env.port || 8000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-function setCorsHeaders(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', "https://mangafy.vercel.app/");
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Accept ');
-  next();
-}
-app.use(setCorsHeaders);
+// function setCorsHeaders(req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', "https://mangafy.vercel.app/");
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Accept ');
+//   next();
+// }
+// app.use(setCorsHeaders);
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://mangafy.vercel.app/");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+});
 
 app.get("/",(req,res)=>{
     res.send("Hey");
