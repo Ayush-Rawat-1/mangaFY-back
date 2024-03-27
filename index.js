@@ -5,13 +5,19 @@ import axios from "axios";
 dotenv.config();
 import cors from "cors";
 
-
 const app=express();
 const port=process.env.port || 8000;
 
-app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+
+function setCorsHeaders(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', "https://mangafy.vercel.app/");
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Accept ');
+  next();
+}
+app.use(setCorsHeaders);
 
 app.get("/",(req,res)=>{
     res.send("Hey");
